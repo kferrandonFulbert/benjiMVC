@@ -1,21 +1,12 @@
 <?php 
-
-class dbClient{
-    private $_table;
-private $_db; 
+require_once "Db.php";
+class dbClient extends Db{
+  
     public function __construct()
     {
-        $dsn = 'mysql:dbname=TODO;host=172.16.10.190';
-        $user = 'TODO';
-        $password = 'todo';
-        $this->_db = new PDO($dsn, $user, $password);        
+        parent::__construct();
+        $this->_table= "client";        
     }
-    /**
-     * @return statement
-     */
-    public function list(){
-        $sql = "select * from client";
-        return $this->_db->query($sql);
-    }
+
 
 }
