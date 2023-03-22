@@ -13,6 +13,10 @@ switch ($page) {
             $view = $client->list();
          //   include './Views/Client/liste.php';
         }
+        elseif ($action == 'form') {
+            $view = $client->form();
+         //   include './Views/Client/liste.php';
+        }
         break;
     case 'projet':
         //index.php?page=projet&action=list

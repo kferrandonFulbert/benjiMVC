@@ -1,8 +1,10 @@
-<?php 
+<?php
+
 /**
  * classe mere du modèle
  */
-class Db{
+class Db
+{
     protected $_db;
     protected $_table;
     /**
@@ -22,8 +24,17 @@ class Db{
      */
     public function list()
     {
-        $sql = "select * from ".$this->_table;
+        $sql = "select * from " . $this->_table;
         return $this->_db->query($sql);
     }
 
+    public function getOneById(int $id)
+    {
+        $sql = "select * from " . $this->_table . " where id=:id";
+        $sth = $this->_db->prepare($sql);
+        $sth->bindParam(':id', $id, PDO::PARAM_INT);
+        $sth->execute([':id' => $id]);
+        return $sth->fetch(PDO::FETCH_OBJ);
+        //   $sth->debugDumpParams();
+    }
 }
