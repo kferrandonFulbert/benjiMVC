@@ -1,4 +1,4 @@
-<h1>Liste de mes clients</h1>
+<h1>Liste de mes clients <a href="./index.php?page=client&action=form" class="btn btn-dark">+</a></h1>
 <table class="table">
   <thead>
     <tr>

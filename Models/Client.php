@@ -20,6 +20,20 @@ class dbClient extends Db{
         $sth->debugDumpParams();
        // die;
     }
+    public function insert($nom, $siret, $status, $adresse){
+        $sql = "insert into " . $this->_table . " 
+        (nom, siret, statut_juridique, adresse) value(:nom, :siret, :status, :adresse);
+        ";
+        $sth = $this->_db->prepare($sql);
+      //  $sth->bindParam(':id', $id, PDO::PARAM_INT);
+        $sth->bindParam(':nom', $nom, PDO::PARAM_STR, 40);
+        $sth->bindParam(':siret', $siret, PDO::PARAM_STR, 13);
+        $sth->bindParam(':status', $status, PDO::PARAM_STR, 40);
+        $sth->bindParam(':adresse', $adresse, PDO::PARAM_STR, 250);
+        $sth->execute();
+        $sth->debugDumpParams();
+      //  die;
+    }
     
 
 

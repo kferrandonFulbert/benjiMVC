@@ -18,7 +18,13 @@ class Client
          * Validation du formulaire
          */
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->update();
+            // je suis en insert
+            if (!isset($_POST['id']) || empty($_POST['id'])) {
+                $this->insert();
+            } else {
+                // je suis en update car j'ai un ID
+                $this->update();
+            }
         } else {
             // affichage du formulaire avec recupération du client
             $form = "";
@@ -27,6 +33,24 @@ class Client
             }
         }
         return ['form' => $form];
+    }
+
+    /**
+     * 
+     */
+    public function delete(){
+        $this->_clientModel->deleteOneById($_GET['id']);
+        header('location: ./index.php?page=client&action=list');
+    }
+    private function insert()
+    {
+        //  $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS);
+        $siret = filter_input(INPUT_POST, 'siret', FILTER_SANITIZE_SPECIAL_CHARS);
+        $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
+        $adresse = filter_input(INPUT_POST, 'adresse', FILTER_SANITIZE_SPECIAL_CHARS);
+        $this->_clientModel->insert($nom, $siret, $status, $adresse);
+        header('location: ./index.php?page=client&action=list');
     }
     private function update()
     {

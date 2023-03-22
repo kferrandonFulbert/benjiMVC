@@ -37,4 +37,9 @@ class Db
         return $sth->fetch(PDO::FETCH_OBJ);
         //   $sth->debugDumpParams();
     }
+    public function deleteOneById(int $id){
+        $sql = "delete from " . $this->_table . " where id=:id";
+        $sth = $this->_db->prepare($sql);
+        $sth->execute([':id' => $id]);
+    }
 }
